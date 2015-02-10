@@ -1,5 +1,4 @@
 <?php
-
 /**
 * Bootstrap Form Helper
 *
@@ -19,24 +18,16 @@
 * @since Apache v2
 * @license http://www.apache.org/licenses/LICENSE-2.0
 */
-
 App::import('Helper', 'Form') ;
-
 class BootstrapFormHelper extends FormHelper {
-
     public $helpers = array('Html') ;
-
     public $horizontal = false ;
     public $inline = false ;
     public $search = false ;
-
     private $colSize ;
-
     private $buttonTypes = array('primary', 'info', 'success', 'warning', 'danger', 'inverse', 'link') ;
     private $buttonSizes = array('sm', 'md', 'lg') ;
-
     private $currentInputType = null ;
-
     /**
      *
      * Add classes to options according to values of bootstrap-type and bootstrap-size for button.
@@ -48,20 +39,16 @@ class BootstrapFormHelper extends FormHelper {
     **/
     protected function _addButtonClasses ($options) {
         $options = $this->addClass($options, 'btn btn-default') ;
-
-		if (isset($options['bootstrap-type']) && in_array($options['bootstrap-type'], $this->buttonTypes)){
-			$options = $this->addClass($options, 'btn-'.$options['bootstrap-type']) ;
-		}
-
-		if (isset($options['bootstrap-size']) && in_array($options['bootstrap-size'], $this->buttonSizes)){
-			$options = $this->addClass($options, 'btn-'.$options['bootstrap-size']) ;
-		}
-
+        if (isset($options['bootstrap-type']) && in_array($options['bootstrap-type'], $this->buttonTypes)){
+            $options = $this->addClass($options, 'btn-'.$options['bootstrap-type']) ;
+        }
+        if (isset($options['bootstrap-size']) && in_array($options['bootstrap-size'], $this->buttonSizes)){
+            $options = $this->addClass($options, 'btn-'.$options['bootstrap-size']) ;
+        }
         unset($options['bootstrap-size']) ;
         unset($options['bootstrap-type']) ;
         return $options ;
     }
-
     /**
      *
      * Try to match the specified HTML code with a button or a input with submit type.
@@ -74,7 +61,6 @@ class BootstrapFormHelper extends FormHelper {
     protected function _matchButton ($html) {
         return strpos($html, '<button') !== FALSE || strpos($html, 'type="submit"') !== FALSE ;
     }
-
     /**
      *
      * Create a Twitter Bootstrap like form.
@@ -125,7 +111,6 @@ class BootstrapFormHelper extends FormHelper {
         ) ;
         return parent::create($model, $options) ;
     }
-
     /**
      *
      * Return the col size class for the specified column (label, input or error).
@@ -142,7 +127,6 @@ class BootstrapFormHelper extends FormHelper {
         }
         return '' ;
     }
-
     /**
      *
      * Create & return a error message (Twitter Bootstrap like).
@@ -162,7 +146,6 @@ class BootstrapFormHelper extends FormHelper {
         $options = $this->addClass($options, $errorClass) ;
         return parent::error($field, $text, $options) ;
     }
-
     /**
      *
      * Create & return a label message (Twitter Boostrap like).
@@ -183,7 +166,6 @@ class BootstrapFormHelper extends FormHelper {
         }
         return parent::label($fieldName, $text, $options) ;
     }
-
     /**
      *
      * Create & return an input block (Twitter Boostrap Like).
@@ -196,7 +178,6 @@ class BootstrapFormHelper extends FormHelper {
      *
     **/
     public function input($fieldName, $options = array()) {
-
         $prepend = $this->_extractOption('prepend', $options, null) ;
         unset ($options['prepend']) ;
         $append = $this->_extractOption('append', $options, null) ;
@@ -207,14 +188,11 @@ class BootstrapFormHelper extends FormHelper {
         $label = $this->_extractOption('label', $options, false) ;
         $inline = $this->_extractOption('inline', $options, false) ;
         unset ($options['inline']) ;
-
         $this->setEntity($fieldName);
         $options = $this->_parseOptions($options) ;
         $options['format'] = array('label', 'before', 'input', 'between', 'error', 'after') ;
         $this->currentInputType = $options['type'] ;
-
         $beforeClass = array() ;
-
         if ($options['type'] == 'checkbox' || $options['type'] == 'radio') {
             $before = '<label'.($inline ? ' class="'.$options['type'].'-inline"' : '').'>'.$before ;
             $between = $between.'</label>' ;
@@ -264,25 +242,20 @@ class BootstrapFormHelper extends FormHelper {
                 }
             }
         }
-
         if (!empty($beforeClass)) {
             foreach($beforeClass as $bc) {
                 $before .= '<div class="'.$bc.'">' ;
                 $after = '</div>'.$after ;
             }
         }
-
         $options['before'] = $before ;
         $options['after'] = $after ;
         $options['between'] = $between ;
-
         if ($options['type'] != 'checkbox' && $options['type'] != 'radio') {
             $options = $this->addClass($options, 'form-control') ;
         }
-
         return parent::input($fieldName, $options) ;
     }
-
     /**
      *
      * Create & return a Twitter Like button.
@@ -296,7 +269,6 @@ class BootstrapFormHelper extends FormHelper {
         $options = $this->_addButtonClasses($options) ;
         return parent::button($title, $options) ;
     }
-
     /**
      *
      * Create & return a Twitter Like button group.
@@ -317,7 +289,6 @@ class BootstrapFormHelper extends FormHelper {
         }
         return $this->Html->tag('div', implode('', $buttons), $options) ;
     }
-
     /**
      *
      * Create & return a Twitter Like button toolbar.
@@ -330,7 +301,6 @@ class BootstrapFormHelper extends FormHelper {
         $options = $this->addClass($options, 'btn-toolbar') ;
         return $this->Html->tag('div', implode('', $buttonGroups), $options) ;
     }
-
     /**
      *
      * Create & return a twitter bootstrap dropdown button.
@@ -342,11 +312,9 @@ class BootstrapFormHelper extends FormHelper {
      *
     **/
     public function dropdownButton ($title, $menu = array(), $options = array()) {
-
         $options['type'] = false ;
         $options['data-toggle'] = 'dropdown' ;
         $options = $this->addClass($options, "dropdown-toggle") ;
-
         $outPut = '<div class="btn-group">' ;
         $outPut .= $this->button($title.'<span class="caret"></span>', $options) ;
         $outPut .= '<ul class="dropdown-menu">' ;
@@ -361,7 +329,6 @@ class BootstrapFormHelper extends FormHelper {
         $outPut .= '</ul></div>' ;
         return $outPut ;
     }
-
     /**
      *
      * Create & return a Twitter Like submit input.
@@ -383,7 +350,6 @@ class BootstrapFormHelper extends FormHelper {
         }
         return '<div class="form-group"><div class="'.$this->_getColClass('offset').' '.$this->_getColClass('input').'">'.parent::submit($caption, $options).'</div></div>';
     }
-
     /**
      *
      * End a form, Twitter Bootstrap like.
@@ -404,18 +370,14 @@ class BootstrapFormHelper extends FormHelper {
             if (!array_key_exists('div', $options)) {
                 $options['div'] = array() ;
             }
-
-			if (!isset($options['div']['class'])){
-				$options['div']['class'] = '';
-			}
-
+            if (!isset($options['div']['class'])){
+                $options['div']['class'] = '';
+            }
             $options['div']['class'] .=  ' form-actions' ;
         }
         return parent::end($options, $secureAttributes) ;
     }
-
     /** SPECIAL FORM **/
-
     /**
      *
      * Create a basic bootstrap search form.
@@ -430,16 +392,13 @@ class BootstrapFormHelper extends FormHelper {
      *
     **/
     public function searchForm ($model = null, $options = array()) {
-
         $label = $this->_extractOption('label', $options, false) ;
         unset($options['label']) ;
         $placeholder = $this->_extractOption('placeholder', $options, 'Search... ') ;
         unset($options['placeholder']) ;
         $button = $this->_extractOption('button', $options, 'Search') ;
         unset($options['button']) ;
-
         $output = '' ;
-
         $output .= $this->create($model, array_merge(array('search' => true, 'inline' => (bool)$label), $options)) ;
         $output .= $this->input('search', array(
             'label' => $label,
@@ -449,10 +408,7 @@ class BootstrapFormHelper extends FormHelper {
             )
         )) ;
         $output .= $this->end() ;
-
         return $output ;
     }
-
 }
-
 ?>
