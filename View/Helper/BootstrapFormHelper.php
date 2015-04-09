@@ -410,5 +410,30 @@ class BootstrapFormHelper extends FormHelper {
         $output .= $this->end() ;
         return $output ;
     }
+
+
+    /** 
+    *
+    * Setup or change columns distribution
+    * @param $labelSize column size for label or caption
+    * @param $inputSize column size for input field
+    * @param $errorSize column size for error message
+    *
+    **/
+    public function setColumns($labelSize, $inputSize, $errorSize){
+
+        if(is_numeric($labelSize) && is_numeric($inputSize) && is_numeric($errorSize)){
+
+            $this->colSize = array(
+                'label' => $labelSize,
+                'input' => $inputSize,
+                'error' => $errorSize
+            ) ;            
+        }
+        else{
+            throw new Exception(__("All values must be numeric"));
+        }
+        
+    }
 }
 ?>
