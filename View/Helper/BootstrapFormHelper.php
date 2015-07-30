@@ -256,6 +256,38 @@ class BootstrapFormHelper extends FormHelper {
         }
         return parent::input($fieldName, $options) ;
     }
+
+    public function inputStatic($fieldName, $options = array()){
+
+        $value = "";
+
+        if(isset($this->data[$this->defaultModel][$fieldName])){
+            $value = $this->data[$this->defaultModel][$fieldName];
+        }
+
+        if(! empty($options['value'])){
+            $value = $options['value'];                            
+        }
+
+        if(! empty($options['options']) && is_array($options['options']) ){
+            if(array_key_exists($value, $options['options'])){
+                $value = $options['options'][$value];
+            }
+        }
+        
+        $label = ucwords($fieldName);
+        if(! empty($options['label'])){
+            $label = $options['label'];
+        }
+        $out = "<div class='form-group'>
+            <label class='col-md-4 control-label'>".$label."</label>
+            <div class='col-md-8'>
+                <p class='form-control-static' id='".$fieldName."'>".$value."</p>
+            </div>
+        </div>";        
+
+        return $out;
+    }
     /**
      *
      * Create & return a Twitter Like button.
