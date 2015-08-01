@@ -274,6 +274,16 @@ class BootstrapFormHelper extends FormHelper {
                 $value = $options['options'][$value];
             }
         }
+
+        $append = "";
+        if(! empty($options['append'])){
+            $append = "<span> ".$options['append']."</span>";
+        }
+
+        $prepend = "";
+        if(! empty($options['prepend'])){
+            $prepend = "<span>".$options['prepend']." </span>";
+        }
         
         $label = ucwords($fieldName);
         if(! empty($options['label'])){
@@ -282,7 +292,7 @@ class BootstrapFormHelper extends FormHelper {
         $out = "<div class='form-group'>
             <label class='col-md-4 control-label'>".$label."</label>
             <div class='col-md-8'>
-                <p class='form-control-static' id='".$fieldName."'>".$value."</p>
+                <p class='form-control-static' id='".$fieldName."'>".$prepend.$value.$append."</p>
             </div>
         </div>";        
 
