@@ -123,7 +123,10 @@ class BootstrapFormHelper extends FormHelper {
         }
         $size = $this->colSize[$what] ;
         if ($size) {
-            return 'col-md-'.($offset ? 'offset-' : '').$size ;
+            $md_size = 'col-md-'.($offset ? 'offset-' : '').$size ;
+            $sm_size = 'col-sm-'.($offset ? 'offset-' : '').$size ;
+
+            return $md_size . " " . $sm_size;
         }
         return '' ;
     }
@@ -266,7 +269,7 @@ class BootstrapFormHelper extends FormHelper {
         }
 
         if(! empty($options['value'])){
-            $value = $options['value'];                            
+            $value = $options['value'];
         }
 
         if(! empty($options['options']) && is_array($options['options']) ){
@@ -284,7 +287,7 @@ class BootstrapFormHelper extends FormHelper {
         if(! empty($options['prepend'])){
             $prepend = "<span>".$options['prepend']." </span>";
         }
-        
+
         $label = ucwords($fieldName);
         if(! empty($options['label'])){
             $label = $options['label'];
@@ -294,7 +297,7 @@ class BootstrapFormHelper extends FormHelper {
             <div class='col-md-8'>
                 <p class='form-control-static' id='".$fieldName."'>".$prepend.$value.$append."</p>
             </div>
-        </div>";        
+        </div>";
 
         return $out;
     }
@@ -454,7 +457,7 @@ class BootstrapFormHelper extends FormHelper {
     }
 
 
-    /** 
+    /**
     *
     * Setup or change columns distribution
     * @param $labelSize column size for label or caption
@@ -470,12 +473,12 @@ class BootstrapFormHelper extends FormHelper {
                 'label' => $labelSize,
                 'input' => $inputSize,
                 'error' => $errorSize
-            ) ;            
+            ) ;
         }
         else{
             throw new Exception(__("All values must be numeric"));
         }
-        
+
     }
 }
 ?>
