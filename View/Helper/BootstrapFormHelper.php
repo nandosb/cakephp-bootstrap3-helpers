@@ -292,9 +292,10 @@ class BootstrapFormHelper extends FormHelper {
         if(! empty($options['label'])){
             $label = $options['label'];
         }
+
         $out = "<div class='form-group'>
-            <label class='col-md-4 control-label'>".$label."</label>
-            <div class='col-md-8'>
+            <label class='". $this->_getColClass('input') ." control-label'>".$label."</label>
+            <div class='". $this->_getColClass('input') ."'>
                 <p class='form-control-static' id='".$fieldName."'>".$prepend.$value.$append."</p>
             </div>
         </div>";
