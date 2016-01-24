@@ -125,8 +125,9 @@ class BootstrapFormHelper extends FormHelper {
         if ($size) {
             $md_size = 'col-md-'.($offset ? 'offset-' : '').$size ;
             $sm_size = 'col-sm-'.($offset ? 'offset-' : '').$size ;
+            $xs_size = 'col-xs-'.($offset ? 'offset-' : '').$size ;
 
-            return $md_size . " " . $sm_size;
+            return $md_size . " " . $sm_size . " " . $xs_size;
         }
         return '' ;
     }
